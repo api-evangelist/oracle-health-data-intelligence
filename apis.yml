@@ -1,6 +1,9 @@
 aid: oracle-health-data-intelligence
 url: >-
   https://raw.githubusercontent.com/api-evangelist/oracle-health-data-intelligence/refs/heads/main/apis.yml
+common:
+  - type: GitHubOrganization
+    url: https://github.com/oracle
 apis:
   - aid: oracle-health-data-intelligence:oracle-health-data-intelligence
     name: Oracle Health Data Intelligence

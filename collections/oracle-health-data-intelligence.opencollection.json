@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Oracle Health Data Intelligence - Allergy API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Retrieve a list of allergies for a patient",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://cernerdemo.api.us-1.healtheintent.com/allergy/v1/populations/:populationId/patients/:patientId/allergies",
+        "params": [
+          {
+            "name": "populationId",
+            "value": "",
+            "type": "path",
+            "description": "Population identifier"
+          },
+          {
+            "name": "patientId",
+            "value": "",
+            "type": "path",
+            "description": "Patient identifier"
+          },
+          {
+            "name": "limit",
+            "value": "",
+            "type": "query",
+            "description": "Maximum number of results per page"
+          },
+          {
+            "name": "cursor",
+            "value": "",
+            "type": "query",
+            "description": "Pagination cursor returned from a previous response"
+          },
+          {
+            "name": "status",
+            "value": "",
+            "type": "query",
+            "description": "Filter by allergy status"
+          }
+        ]
+      },
+      "docs": "Retrieve a list of allergies for a patient"
+    },
+    {
+      "info": {
+        "name": "Retrieve a single allergy",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://cernerdemo.api.us-1.healtheintent.com/allergy/v1/populations/:populationId/patients/:patientId/allergies/:allergyId",
+        "params": [
+          {
+            "name": "populationId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "patientId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "allergyId",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "Retrieve a single allergy"
+    }
+  ],
+  "bundled": true
+}

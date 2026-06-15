@@ -1,0 +1,910 @@
+{
+  "item": [
+    {
+      "id": "6f913238-3734-4589-824d-f3c850280321",
+      "name": "Retrieve a list of allergies for a patient",
+      "request": {
+        "name": "Retrieve a list of allergies for a patient",
+        "description": {},
+        "url": {
+          "path": [
+            "populations",
+            ":populationId",
+            "patients",
+            ":patientId",
+            "allergies"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "limit",
+              "value": "20",
+              "description": "Maximum number of results per page"
+            },
+            {
+              "disabled": false,
+              "key": "cursor",
+              "value": "<string>",
+              "description": "Pagination cursor returned from a previous response"
+            },
+            {
+              "disabled": false,
+              "key": "status",
+              "value": "<string>",
+              "description": "Filter by allergy status"
+            },
+            {
+              "disabled": false,
+              "key": "status",
+              "value": "<string>",
+              "description": "Filter by allergy status"
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "populationId",
+              "description": "(Required) Population identifier"
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "patientId",
+              "description": "(Required) Patient identifier"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "61cfba67-c12e-4d1d-8330-12871648324c",
+          "name": "A paginated list of allergies",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) Population identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) Patient identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"assertedOn\": \"2020-03-03T03:29:24.142Z\",\n      \"onset\": \"1957-08-28T03:35:24.500Z\",\n      \"resolvedOn\": \"1948-12-05T05:33:44.893Z\",\n      \"status\": {\n        \"text\": \"string\"\n      },\n      \"type\": {\n        \"text\": \"string\"\n      },\n      \"category\": {\n        \"text\": \"string\"\n      },\n      \"code\": {\n        \"text\": \"string\"\n      },\n      \"criticality\": {\n        \"text\": \"string\"\n      },\n      \"asserter\": {\n        \"type\": \"string\"\n      },\n      \"encounter\": {\n        \"id\": \"string\"\n      },\n      \"notes\": [\n        {\n          \"date\": \"1969-03-29T05:09:41.059Z\",\n          \"text\": \"string\",\n          \"author\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"date\": \"2001-01-18T13:25:12.268Z\",\n          \"text\": \"string\",\n          \"author\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"reactions\": [\n        {\n          \"reaction\": {\n            \"text\": \"string\"\n          },\n          \"severity\": {\n            \"text\": \"string\"\n          }\n        },\n        {\n          \"reaction\": {\n            \"text\": \"string\"\n          },\n          \"severity\": {\n            \"text\": \"string\"\n          }\n        }\n      ],\n      \"sourceIdentifier\": {\n        \"dataPartitionId\": \"string\",\n        \"id\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"assertedOn\": \"1975-12-31T08:49:30.596Z\",\n      \"onset\": \"1957-05-04T11:39:20.681Z\",\n      \"resolvedOn\": \"2002-08-27T15:23:01.618Z\",\n      \"status\": {\n        \"text\": \"string\"\n      },\n      \"type\": {\n        \"text\": \"string\"\n      },\n      \"category\": {\n        \"text\": \"string\"\n      },\n      \"code\": {\n        \"text\": \"string\"\n      },\n      \"criticality\": {\n        \"text\": \"string\"\n      },\n      \"asserter\": {\n        \"type\": \"string\"\n      },\n      \"encounter\": {\n        \"id\": \"string\"\n      },\n      \"notes\": [\n        {\n          \"date\": \"2001-01-01T11:32:51.605Z\",\n          \"text\": \"string\",\n          \"author\": \"string\",\n          \"type\": \"string\"\n        },\n        {\n          \"date\": \"2007-12-18T13:31:38.879Z\",\n          \"text\": \"string\",\n          \"author\": \"string\",\n          \"type\": \"string\"\n        }\n      ],\n      \"reactions\": [\n        {\n          \"reaction\": {\n            \"text\": \"string\"\n          },\n          \"severity\": {\n            \"text\": \"string\"\n          }\n        },\n        {\n          \"reaction\": {\n            \"text\": \"string\"\n          },\n          \"severity\": {\n            \"text\": \"string\"\n          }\n        }\n      ],\n      \"sourceIdentifier\": {\n        \"dataPartitionId\": \"string\",\n        \"id\": \"string\"\n      }\n    }\n  ],\n  \"firstLink\": \"string\",\n  \"nextLink\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "55426113-6975-4397-b1ef-51f94dd0703a",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) Population identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) Patient identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "381998c3-ccfa-4a33-9193-172591fddd8b",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) Population identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) Patient identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "56aa8922-6495-48de-9c67-c774f3a714cb",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) Population identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) Patient identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d2c546cc-00c1-4d28-916b-3729f7f257cf",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) Population identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) Patient identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "57ffae78-8586-409c-bb58-bde26bfe57f5",
+      "name": "Retrieve a single allergy",
+      "request": {
+        "name": "Retrieve a single allergy",
+        "description": {},
+        "url": {
+          "path": [
+            "populations",
+            ":populationId",
+            "patients",
+            ":patientId",
+            "allergies",
+            ":allergyId"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "populationId",
+              "description": "(Required) "
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "patientId",
+              "description": "(Required) "
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "allergyId",
+              "description": "(Required) "
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "6dfd3b1b-1f97-4a80-b79a-3ca7e89219a6",
+          "name": "A single allergy",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies",
+                ":allergyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allergyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"id\": \"string\",\n  \"assertedOn\": \"2005-01-15T12:36:46.920Z\",\n  \"onset\": \"2001-07-05T00:50:20.347Z\",\n  \"resolvedOn\": \"1966-03-25T03:04:02.014Z\",\n  \"status\": {\n    \"text\": \"string\"\n  },\n  \"type\": {\n    \"text\": \"string\"\n  },\n  \"category\": {\n    \"text\": \"string\"\n  },\n  \"code\": {\n    \"text\": \"string\"\n  },\n  \"criticality\": {\n    \"text\": \"string\"\n  },\n  \"asserter\": {\n    \"type\": \"string\"\n  },\n  \"encounter\": {\n    \"id\": \"string\"\n  },\n  \"notes\": [\n    {\n      \"date\": \"2015-12-04T20:31:50.299Z\",\n      \"text\": \"string\",\n      \"author\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"date\": \"2020-08-07T02:36:35.844Z\",\n      \"text\": \"string\",\n      \"author\": \"string\",\n      \"type\": \"string\"\n    }\n  ],\n  \"reactions\": [\n    {\n      \"reaction\": {\n        \"text\": \"string\"\n      },\n      \"severity\": {\n        \"text\": \"string\"\n      }\n    },\n    {\n      \"reaction\": {\n        \"text\": \"string\"\n      },\n      \"severity\": {\n        \"text\": \"string\"\n      }\n    }\n  ],\n  \"sourceIdentifier\": {\n    \"dataPartitionId\": \"string\",\n    \"id\": \"string\"\n  }\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "7d273eda-bdf1-4460-a9d9-8ada91226295",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies",
+                ":allergyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allergyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "d3668ecc-88bb-4795-9f06-09c969d2c3c6",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies",
+                ":allergyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allergyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "fd571bb7-831c-47ef-bbec-c3dda2823aa3",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies",
+                ":allergyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allergyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Forbidden",
+          "code": 403,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "539ac821-e82f-4194-bd0f-9af9a00bda14",
+          "name": "Error response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "populations",
+                ":populationId",
+                "patients",
+                ":patientId",
+                "allergies",
+                ":allergyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "populationId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "allergyId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: bearer",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "Bearer <token>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cernerdemo.api.us-1.healtheintent.com/allergy/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "14073c08-2494-49f5-b9c6-e4783922ee4e",
+    "name": "Oracle Health Data Intelligence - Allergy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Allergy API for Oracle Health Data Intelligence (formerly Cerner HealtheIntent).\nProvides population-scoped access to patient allergies.\n\n\nContact Support:\n Name: Oracle Health Data Intelligence",
+      "type": "text/plain"
+    }
+  }
+}

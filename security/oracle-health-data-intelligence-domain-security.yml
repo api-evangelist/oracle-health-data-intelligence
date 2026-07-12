@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: docs.healtheintent.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Mar  1 23:59:59 2027 GMT
+  hsts: false
+- host: cernerdemo.api.us-1.healtheintent.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 28 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: healtheintent.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

@@ -2,6 +2,10 @@ aid: oracle-health-data-intelligence
 url: >-
   https://raw.githubusercontent.com/api-evangelist/oracle-health-data-intelligence/refs/heads/main/apis.yml
 common:
+  - type: DomainSecurity
+    url: security/oracle-health-data-intelligence-domain-security.yml
+  - type: Authentication
+    url: authentication/oracle-health-data-intelligence-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/oracle
 apis:

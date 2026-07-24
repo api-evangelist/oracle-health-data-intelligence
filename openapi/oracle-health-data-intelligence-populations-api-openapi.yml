@@ -1,60 +1,64 @@
 openapi: 3.1.0
 info:
-  title: Oracle Health Data Intelligence - Allergy API
+  title: Oracle Health Data Intelligence - Allergy Populations API
   version: v1
-  description: |
-    Allergy API for Oracle Health Data Intelligence (formerly Cerner HealtheIntent).
+  description: 'Allergy API for Oracle Health Data Intelligence (formerly Cerner HealtheIntent).
+
     Provides population-scoped access to patient allergies.
+
+    '
   contact:
     name: Oracle Health Data Intelligence
     url: https://docs.healtheintent.com/api/v1/allergy/
 servers:
-  - url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1
-    description: Cerner demo environment
+- url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1
+  description: Cerner demo environment
 security:
-  - bearerAuth: []
+- bearerAuth: []
+tags:
+- name: Populations
 paths:
   /populations/{populationId}/patients/{patientId}/allergies:
     get:
       summary: Retrieve a list of allergies for a patient
       operationId: listAllergies
       parameters:
-        - name: populationId
-          in: path
-          required: true
-          schema:
+      - name: populationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Population identifier
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Patient identifier
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+        description: Maximum number of results per page
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Pagination cursor returned from a previous response
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
             type: string
-          description: Population identifier
-        - name: patientId
-          in: path
-          required: true
-          schema:
-            type: string
-          description: Patient identifier
-        - name: limit
-          in: query
-          required: false
-          schema:
-            type: integer
-            default: 20
-            minimum: 1
-            maximum: 100
-          description: Maximum number of results per page
-        - name: cursor
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Pagination cursor returned from a previous response
-        - name: status
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
-          explode: true
-          description: Filter by allergy status
+        explode: true
+        description: Filter by allergy status
       responses:
         '200':
           description: A paginated list of allergies
@@ -70,26 +74,28 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '404':
           $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Populations
   /populations/{populationId}/patients/{patientId}/allergies/{allergyId}:
     get:
       summary: Retrieve a single allergy
       operationId: getAllergy
       parameters:
-        - name: populationId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: patientId
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: allergyId
-          in: path
-          required: true
-          schema:
-            type: string
+      - name: populationId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: allergyId
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: A single allergy
@@ -105,12 +111,9 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '404':
           $ref: '#/components/responses/ErrorResponse'
+      tags:
+      - Populations
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: Bearer token supplied via the Authorization header.
   responses:
     ErrorResponse:
       description: Error response
@@ -119,21 +122,34 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Allergies:
+    Error:
       type: object
       properties:
-        items:
+        code:
+          type: string
+        message:
+          type: string
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
           type: array
           items:
-            $ref: '#/components/schemas/Allergy'
-        firstLink:
-          type: string
-        nextLink:
+            type: object
+        sourceCodings:
+          type: array
+          items:
+            type: object
+        concepts:
+          type: array
+          items:
+            type: object
+        text:
           type: string
     Allergy:
       type: object
       required:
-        - id
+      - id
       properties:
         id:
           type: string
@@ -200,27 +216,19 @@ components:
               type: string
             id:
               type: string
-    CodeableConcept:
+    Allergies:
       type: object
       properties:
-        codings:
+        items:
           type: array
           items:
-            type: object
-        sourceCodings:
-          type: array
-          items:
-            type: object
-        concepts:
-          type: array
-          items:
-            type: object
-        text:
+            $ref: '#/components/schemas/Allergy'
+        firstLink:
           type: string
-    Error:
-      type: object
-      properties:
-        code:
+        nextLink:
           type: string
-        message:
-          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token supplied via the Authorization header.

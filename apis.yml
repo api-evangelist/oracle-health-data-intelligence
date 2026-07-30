@@ -11,30 +11,52 @@ common:
   - type: GitHubOrganization
     url: https://github.com/oracle
 apis:
-  - aid: oracle-health-data-intelligence:oracle-health-data-intelligence
-    name: Oracle Health Data Intelligence
-    tags:
-      - Genomic
-      - Health Records
-      - Healthcare
-    humanURL: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
-    properties:
-      - url: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
-        type: Documentation
-    description: >-
-      Oracle Health Data Intelligence is a comprehensive platform that leverages advanced
-      analytics and artificial intelligence to collect and analyze health data from
-      various sources, including electronic health records, claims data, and patient-generated
-      data. This platform enables healthcare organizations to gain valuable insights
-      into patient populations, treatment outcomes, and healthcare trends, ultimately
-      improving the quality of care and driving better patient outcomes.
+- aid: oracle-health-data-intelligence:oracle-health-data-intelligence
+  name: Oracle Health Data Intelligence
+  tags:
+  - Genomic
+  - Health Records
+  - Healthcare
+  humanURL: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+  properties:
+  - url: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+    type: Documentation
+  description: >-
+    Oracle Health Data Intelligence is a comprehensive platform that leverages advanced analytics and
+    artificial intelligence to collect and analyze health data from various sources, including electronic
+    health records, claims data, and patient-generated data. This platform enables healthcare organizations
+    to gain valuable insights into patient populations, treatment outcomes, and healthcare trends, ultimately
+    improving the quality of care and driving better patient outcomes.
+- aid: oracle-health-data-intelligence:oracle-health-data-intelligence-populations-api
+  name: Oracle Health Data Intelligence Populations API
+  description: >-
+    The Populations API from Oracle Health Data Intelligence — 2 operation(s) for populations.
+  humanURL: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+  tags:
+  - Populations
+  properties:
+  - type: OpenAPI
+    url: openapi/oracle-health-data-intelligence-populations-api-openapi.yml
 name: Oracle Health Data Intelligence
 tags:
   - Genomic
   - Health Records
   - Healthcare
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-health-data-intelligence.png
 access: 3rd-Party
 created: '2025-01-07'
 modified: '2026-03-16'

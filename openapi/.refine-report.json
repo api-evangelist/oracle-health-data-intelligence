@@ -1,0 +1,14 @@
+{
+  "provider": "oracle-health-data-intelligence",
+  "sources": [
+    "oracle-health-data-intelligence-populations-api-openapi.yml"
+  ],
+  "outputs": [
+    "oracle-health-data-intelligence-populations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

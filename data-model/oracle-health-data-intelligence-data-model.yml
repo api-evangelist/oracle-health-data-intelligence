@@ -1,0 +1,179 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+enriched_from: https://docs.healtheintent.com/api/v1/allergy/
+description: >-
+  Entity-relationship graph derived from the captured Allergy/Populations OpenAPI, enriched with
+  the object reference published on the Allergy API documentation page. Scope is the one API
+  currently captured as a machine-readable contract in this repo; the platform's full object model
+  spans roughly sixty documented APIs and is not represented here.
+scope:
+  apis_modelled:
+    - Allergy API (populations)
+  apis_documented_not_modelled: >-
+    ~60 further APIs are documented on the portal without a machine-readable contract, so their
+    entities are absent from this graph.
+identifiers:
+  format: UUID
+  prefixed: false
+  note: >-
+    Identifiers are bare UUIDs with no type prefix, so an ID carries no evidence of what kind of
+    object it refers to. Callers must track type out of band.
+  stability_warning: >-
+    Patient IDs are explicitly not stable. Oracle instructs that they must not be stored locally
+    for long-term use, because a patient's ID may change as new source data is aggregated into the
+    longitudinal record.
+  source: https://docs.healtheintent.com/#looking-up-patient-ids
+entities:
+  - name: Population
+    path_role: scoping ancestor of every clinical resource
+    fields:
+      - id
+    note: >-
+      Not a retrievable schema in this contract; it appears only as the populationId path segment.
+      Every clinical read is population-scoped.
+  - name: Patient
+    path_role: scoping ancestor
+    fields:
+      - id
+    note: >-
+      Appears as the patientId path segment. Resolved through the Patient API's
+      patient-id-lookup endpoint, which maps a source system's local person ID plus a data
+      partition ID to a Health Data Intelligence patient ID.
+  - name: Allergies
+    kind: collection envelope
+    fields:
+      - name: items
+        type: array<Allergy>
+        required: true
+      - name: firstLink
+        type: string
+        required: true
+      - name: nextLink
+        type: string
+        required: false
+  - name: Allergy
+    kind: resource
+    fields:
+      - {name: id, type: string, required: true}
+      - {name: assertedOn, type: date-time}
+      - {name: onset, type: date-time}
+      - {name: resolvedOn, type: date-time}
+      - {name: status, type: CodeableConcept}
+      - {name: type, type: CodeableConcept}
+      - {name: category, type: CodeableConcept}
+      - {name: code, type: CodeableConcept}
+      - {name: criticality, type: CodeableConcept}
+      - {name: asserter, type: object}
+      - {name: encounter, type: object}
+      - {name: notes, type: array<ProviderNote>}
+      - {name: provenances, type: array<Provenance>}
+      - {name: reactions, type: array<Reaction>}
+      - {name: sourceIdentifier, type: SourceIdentifier}
+  - name: CodeableConcept
+    kind: value object
+    fields:
+      - {name: codings, type: array<Coding>}
+      - {name: sourceCodings, type: array<Coding>}
+      - {name: concepts, type: array<Concept>}
+      - {name: text, type: string}
+    note: >-
+      Structurally FHIR-adjacent — a coded value with a human-readable text fallback — but it is
+      Oracle's own type, not the FHIR CodeableConcept. The platform does not claim FHIR
+      conformance. See conformance/oracle-health-data-intelligence-conformance.yml.
+  - name: Reaction
+    kind: value object
+    fields:
+      - {name: reaction, type: CodeableConcept}
+      - {name: severity, type: CodeableConcept}
+  - name: SourceIdentifier
+    kind: value object
+    fields:
+      - {name: dataPartitionId, type: string}
+      - {name: id, type: string}
+    note: >-
+      The bridge back to the contributing source system. dataPartitionId names the namespace the
+      local id belongs to, which is the same pair used by the Patient API lookup.
+  - name: Provenance
+    kind: value object
+    documented_only: true
+    note: >-
+      Present as an untyped array in the captured contract; the documentation page defines a fuller
+      Provenance / ProvenanceAgent / ProvenanceEntity family that the contract does not express.
+  - name: ProviderNote
+    kind: value object
+    fields:
+      - {name: date, type: date-time}
+      - {name: text, type: string}
+      - {name: author, type: string}
+      - {name: type, type: string}
+  - name: Error
+    kind: error envelope
+    fields:
+      - {name: code, type: integer}
+      - {name: message, type: string}
+      - {name: errorDetails, type: array<ErrorDetail>}
+    note: >-
+      The captured contract types code as string and omits errorDetails. The documented and
+      live-observed shape is integer plus errorDetails[]; the correction is carried in
+      overlays/oracle-health-data-intelligence-populations-api-overlay.yaml.
+  - name: ErrorDetail
+    kind: value object
+    fields:
+      - {name: domain, type: string}
+      - {name: reason, type: string}
+      - {name: message, type: string}
+      - {name: locationType, type: string, enum: [query, header, path, formData, body]}
+      - {name: location, type: string}
+relationships:
+  - from: Population
+    to: Patient
+    type: has_many
+    via: path segment populationId
+  - from: Patient
+    to: Allergy
+    type: has_many
+    via: path segment patientId
+  - from: Allergies
+    to: Allergy
+    type: has_many
+    via: items
+  - from: Allergy
+    to: CodeableConcept
+    type: has_many
+    via: status, type, category, code, criticality
+  - from: Allergy
+    to: Reaction
+    type: has_many
+    via: reactions
+  - from: Allergy
+    to: Provenance
+    type: has_many
+    via: provenances
+  - from: Allergy
+    to: ProviderNote
+    type: has_many
+    via: notes
+  - from: Allergy
+    to: SourceIdentifier
+    type: has_one
+    via: sourceIdentifier
+  - from: Allergy
+    to: Encounter
+    type: belongs_to
+    via: encounter.id
+  - from: Reaction
+    to: CodeableConcept
+    type: has_many
+    via: reaction, severity
+  - from: Error
+    to: ErrorDetail
+    type: has_many
+    via: errorDetails
+  - from: SourceIdentifier
+    to: DataPartition
+    type: belongs_to
+    via: dataPartitionId
+    note: >-
+      Resolved through the Data Source API's data-partitions endpoint, which is documented but not
+      captured as a contract in this repo.

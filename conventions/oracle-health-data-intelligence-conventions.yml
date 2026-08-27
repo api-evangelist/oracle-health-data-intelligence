@@ -1,0 +1,237 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/
+docs: https://docs.healtheintent.com/
+description: >-
+  Cross-cutting runtime semantics for the Oracle Health Data Intelligence API surface, read from
+  the platform-wide Getting Started section of the developer portal and confirmed with a live
+  unauthenticated request against the cernerdemo tenant.
+auth:
+  style: bearer token (system account) or two-legged OAuth 1.0a
+  header: Authorization
+  scopes: none
+  detail: authentication/oracle-health-data-intelligence-authentication.yml
+base_url:
+  template: https://{tenant}.api.{region}.healtheintent.com/{api}/{version}/{resource}
+  variables:
+    tenant: mnemonic assigned to the customer's Health Data Intelligence tenant
+    region: Oracle Cerner Cloud Region ID
+    api: the API called, for example personnel or data-syndication
+    version: the API version, mandatory in the path
+    resource: the resource path
+  legacy_template: https://{tenant}.{solution}.{region}.healtheintent.com/api/{resource}
+  regions:
+    - id: us-1
+      name: US
+      aliases: [us]
+    - id: emea-1
+      name: UK and Egypt
+      aliases: [eu]
+    - id: emea-2
+      name: Sweden and EU
+      aliases: []
+    - id: ca-1
+      name: Canada
+      aliases: []
+    - id: ap-1
+      name: Asia-Pacific
+      aliases: []
+  source: https://docs.healtheintent.com/#url-structure
+versioning:
+  style: path
+  mandatory: true
+  example: https://cernerdemo.api.us-1.healtheintent.com/personnel/v1
+  policy: >-
+    All API modifications are passive within a given version. When a nonpassive change is
+    necessary, a new version is introduced.
+  passive_changes:
+    - adding new optional request parameters to existing methods
+    - adding new fields to existing responses
+    - adding new resources to existing APIs
+  nonpassive_changes:
+    - adding new required request parameters to existing methods
+    - removing or renaming fields in existing responses
+    - changing the behavior of existing resources
+  source: https://docs.healtheintent.com/#versioning
+pagination:
+  style: cursor
+  request_params:
+    - name: cursor
+      in: query
+      description: Opaque cursor taken from the nextLink of the previous response.
+    - name: limit
+      in: query
+      default: 20
+      minimum: 1
+      maximum: 100
+      description: Maximum number of results per page.
+  response_fields:
+    - name: items
+      description: The page of results.
+    - name: firstLink
+      description: Absolute URL of the first page of results. Always present.
+    - name: nextLink
+      description: Absolute URL of the next page. Absent on the last page.
+  legacy_response_fields:
+    - name: more_results
+      description: Boolean on the pre-1.0 legacy APIs.
+    - name: total_results
+      description: Integer total on the pre-1.0 legacy APIs.
+  note: >-
+    Links are fully qualified absolute URLs including the tenant host, so a client should follow
+    nextLink verbatim rather than reconstructing it.
+  source: https://docs.healtheintent.com/api/v1/allergy/#retrieve-a-list-of-allergies
+field_expansion:
+  supported: false
+  note: No sparse-fieldset or expansion parameter is documented on the platform.
+metadata:
+  supported: false
+  note: No customer-supplied metadata field is documented on the platform.
+request_tracing:
+  header: cerner-correlation-id
+  direction: response
+  observed: true
+  observed_on: '2026-08-27'
+  note: >-
+    Returned by the edge on every response including 401s. This is the identifier to quote to
+    Oracle support. No client-supplied request-id header is documented.
+error_envelope:
+  format: vendor-json
+  rfc9457: false
+  shape: '{ code, message, errorDetails[] }'
+  detail: errors/oracle-health-data-intelligence-problem-types.yml
+rate_limit_signaling:
+  documented_headers: []
+  observed_headers: []
+  status_on_exhaustion: 429
+  strategy: client-side exponential backoff
+  note: >-
+    Oracle documents that it intentionally throttles requests and returns 429, but publishes no
+    limit value, no window and no RateLimit/Retry-After header contract. An agent has no runtime
+    signal to read; it can only react to the 429 itself.
+  detail: rate-limits/oracle-health-data-intelligence-rate-limits.yml
+idempotency:
+  supported: false
+  grade: na
+  header: null
+  note: >-
+    No idempotency key, no request-deduplication window and no replay semantics are documented
+    anywhere in the platform Getting Started section or on the API pages inspected. The write
+    surface that does exist (Health Concern, Consumer Notifications, Data Syndication channels) is
+    plain POST/PUT/PATCH/DELETE with no dedupe contract. No Idempotency pointer is emitted, because
+    there is nothing to point at.
+conditional_requests:
+  supported: partial
+  evidence: >-
+    The platform status-code table documents 304 Not Modified for conditional GET requests and 412
+    Precondition Failed for unmet preconditions, which implies validator support, but no ETag or
+    Last-Modified header contract is published.
+dry_run_mode:
+  supported: false
+  grade: na
+  note: >-
+    No preview, validate-only or dry-run mode is documented. The one adjacent facility is
+    POST /test-well-sms-configs on the Consumer Notifications API, which sends a test SMS rather
+    than rehearsing a write.
+reversibility:
+  grade: documented
+  applicable: true
+  read_only: false
+  summary: >-
+    The platform is predominantly read-only over the aggregated longitudinal record — Oracle states
+    that no Health Data Intelligence API writes to the core clinical resources — but the
+    intelligence and configuration APIs do carry a real write surface, and every one of those
+    writes has a documented reversal path in the form of a DELETE or a state-restoring PUT/PATCH.
+    What is absent everywhere is a stated window: no page inspected names a period inside which a
+    reversal is guaranteed to work, so this grades documented rather than verified.
+  core_clinical_write_surface:
+    writable: false
+    quote: >-
+      no Health Data Intelligence APIs allow you to write directly to the core clinical resources
+      like the Millennium Platform FHIR APIs do
+    source: https://docs.healtheintent.com/#when-should-i-use-health-data-intelligence-apis-or-millennium-platform-fhir-apis-to-access-clinical-data-for-a-patient
+  surfaces:
+    - api: Consumer Notifications API
+      docs: https://docs.healtheintent.com/api/v1/consumer-notifications
+      write_operations:
+        - POST /notifiable-events
+        - POST /notifiable-events/{notifiableEventId}/notifications
+        - POST /email-configs
+        - POST /sms-configs
+        - POST /consumers/{consumerId}/preferences
+      reversal:
+        operations:
+          - DELETE /notifiable-events/{notifiableEventId}
+          - DELETE /email-configs/{emailConfigId}
+          - DELETE /sms-configs/{smsConfigId}
+          - DELETE /consumers/{consumerId}/preferences/{preferenceId}
+        window: null
+        note: >-
+          Configuration objects can be deleted. A notification that has already been dispatched to
+          a consumer by SMS or email is not recallable, and no undo operation is documented for it
+          — this is the one genuinely irreversible action on the platform an agent should treat as
+          terminal.
+    - api: Health Concern API
+      docs: https://docs.healtheintent.com/api/v1/health-concern
+      write_operations:
+        - POST /consumers/{consumerId}/health-concerns
+        - POST /consumers/{consumerId}/health-concerns/batch
+        - PUT /health-concerns/{healthConcernId}
+        - POST /health-concerns/{healthConcernId}/notes
+      reversal:
+        operations:
+          - PUT /health-concerns/{healthConcernId}
+          - PUT /health-concerns/{healthConcernId}/notes/{noteId}
+          - DELETE /health-concern-definition-contexts/{healthConcernDefinitionContextId}
+        window: null
+        note: >-
+          Status changes are reversible by writing the prior status back, and the API preserves an
+          audit trail at GET /health-concerns/{healthConcernId}/status-history that an agent can
+          read to recover the previous value before reversing.
+    - api: Data Syndication API
+      docs: https://docs.healtheintent.com/api/v1/data-syndication
+      write_operations:
+        - POST /channels
+        - PUT /channels/{channelId}/status
+      reversal:
+        operations:
+          - PUT /channels/{channelId}/status
+        window: null
+        note: >-
+          A delivery channel is disabled by writing its status back rather than deleting it. Data
+          already written to a customer S3 bucket by a delivery is not withdrawable by the API —
+          Oracle states the customer owns the retention policy for delivered files.
+    - api: Allergy API
+      docs: https://docs.healtheintent.com/api/v1/allergy/
+      write_operations: []
+      reversal:
+        operations: []
+        window: null
+        note: Read-only. Reversibility is not applicable to this API.
+  missing:
+    - >-
+      No documented reversal window anywhere on the platform. An agent cannot know how long it has
+      to undo, only that an undo operation exists.
+    - >-
+      No bulk undo or transaction boundary. POST /consumers/{consumerId}/health-concerns/batch
+      creates many concerns in one call with no matching batch reversal.
+data_semantics:
+  identifier_warning: >-
+    Health Data Intelligence patient IDs are not stable. Oracle explicitly instructs that systems
+    should not store them locally for long-term use, because the unique ID of a patient may change
+    as new source data is aggregated into the longitudinal record. Resolve the ID at the start of
+    each workflow through the Patient API ID lookup.
+  source: https://docs.healtheintent.com/#looking-up-patient-ids
+  authorization_warning: >-
+    User-level authorization and filtering are not applied by the platform. These are B2B APIs and
+    Oracle expects the calling system to apply the appropriate authorization controls for its own
+    users. Any agent fronting these APIs inherits that obligation.
+event_surface:
+  webhooks: false
+  asyncapi: false
+  note: >-
+    No developer-facing webhook, callback or subscription surface exists. The two adjacent surfaces
+    are outbound consumer messaging (Consumer Notifications sends SMS/email to patients, not HTTP
+    callbacks to integrators) and Data Syndication, which delivers bundles by writing directly to a
+    customer-owned Amazon S3 bucket. Neither is an event stream a developer can subscribe to, so no
+    asyncapi/ artifact and no Webhooks pointer are emitted.

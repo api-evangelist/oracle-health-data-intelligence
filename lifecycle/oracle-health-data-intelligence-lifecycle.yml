@@ -1,0 +1,90 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/#versioning
+docs: https://docs.healtheintent.com/#versioning
+description: >-
+  Versioning, deprecation and operational-transparency posture for the Oracle Health Data
+  Intelligence API surface, read from the provider's developer portal.
+versioning:
+  scheme: path
+  mandatory: true
+  current_versions:
+    - v1
+    - v2
+    - alpha
+  example: https://cernerdemo.api.us-1.healtheintent.com/personnel/v1
+  policy: >-
+    All API modifications are passive within a given version. When nonpassive changes are
+    necessary, a new version is introduced.
+  passive_changes:
+    - adding new optional request parameters
+    - adding new response fields
+    - adding new resources
+  nonpassive_changes:
+    - adding new required request parameters
+    - removing or renaming response fields
+    - changing the behavior of existing resources
+  source: https://docs.healtheintent.com/#versioning
+deprecation:
+  policy_published: true
+  policy: >-
+    A class of pre-1.0 APIs is labelled "legacy" in the portal. Oracle states these were built
+    before a clear versioning strategy existed, that they continue to be supported for the
+    foreseeable future and may still be enhanced passively, but that they will eventually be
+    retired and replaced with newer versioned APIs, and that new integrations should use a
+    versioned API where possible.
+  source: https://docs.healtheintent.com/#legacy-apis
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notice_period: null
+  deprecated_apis:
+    - name: HealtheCare API (legacy)
+      path: /api/alpha/care_management/
+    - name: Readmission Risk API (legacy)
+      path: /api/alpha/readmission_risk/
+    - name: Transition of Care API (legacy)
+      path: /api/alpha/toc/
+    - name: Data Collector API (legacy)
+      path: /api/alpha/data_collector/
+    - name: HealtheRecord API (legacy)
+      path: /api/alpha/record/
+    - name: HealtheRegistries API (legacy)
+      path: /api/alpha/registries/
+    - name: HealtheLife Framework SDK (legacy)
+      path: /api/alpha/healthelife/
+  gaps:
+    - >-
+      The retirement statement is directional, not contractual. No date, no notice period, no
+      Sunset or Deprecation response header, and no per-API end-of-life schedule is published, so a
+      consumer of a legacy API has no machine-readable or calendar warning of removal.
+status_page:
+  published: false
+  url: null
+  note: >-
+    No status or uptime page is published for Oracle Health Data Intelligence. Oracle operates
+    ocistatus.oraclecloud.com for Oracle Cloud Infrastructure, but it does not cover this platform
+    and is not linked from the Health Data Intelligence developer portal, so it is not recorded as
+    this provider's status page and no StatusPage pointer is emitted.
+  probed:
+    - url: https://ocistatus.oraclecloud.com/
+      status: 200
+      applies_to_this_product: false
+sla:
+  published: false
+  note: >-
+    No public availability or latency SLA for the API surface. Service levels, where they exist,
+    sit inside the customer's Health Data Intelligence contract.
+release_notes:
+  published: true
+  url: https://wiki.cerner.com/x/SsP5Zg
+  access: gated
+  probed_status: 403
+  note: >-
+    The developer portal links "Release Notes" to Cerner Wiki, which returns 403 to an anonymous
+    request. Change history exists but is behind a customer login, so it is recorded here rather
+    than pointed at as a public ChangeLog.
+support:
+  community: https://community.oracle.com/oraclehealth/group/1423-ignite-apis-community
+  service_records: https://eservice.ucern.com/
+  feature_requests: https://community.oracle.com/oraclehealth/groups

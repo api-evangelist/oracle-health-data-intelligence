@@ -1,13 +1,80 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/oracle-health-data-intelligence-openapi.yml
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/#authentication
+docs: https://docs.healtheintent.com/#authentication
+description: >-
+  Authentication profile for the Oracle Health Data Intelligence (formerly Cerner HealtheIntent)
+  APIs, read from the provider's own developer-portal Getting Started section and confirmed against
+  a live unauthenticated request to the demo tenant.
 summary:
   types:
-  - http
+    - http
+    - oauth1
+  preferred: bearer
+  identity_model: system-account
+  user_level_authorization: false
+  self_serve: false
 schemes:
-- name: bearerAuth
-  type: http
-  scheme: bearer
-  description: Bearer token supplied via the Authorization header.
-  sources:
-  - openapi/oracle-health-data-intelligence-openapi.yml
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    preferred: true
+    description: >-
+      Bearer token issued to an Oracle system account, sent in the Authorization header. Oracle
+      calls this the simpler and recommended method.
+    token_lifetime: >-
+      Does not expire automatically. Oracle instructs customers to rotate the bearer token manually
+      on a regular schedule, when an administrator account is removed, and on any suspicion of
+      compromise.
+    sources:
+      - https://docs.healtheintent.com/#authenticating-using-a-bearer-token
+      - openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+  - name: oauth1
+    type: oauth1
+    version: 1.0a
+    flow: two-legged
+    preferred: false
+    description: >-
+      Two-legged OAuth 1.0a using a consumer key and consumer secret issued with the system
+      account. The consumer credentials are exchanged for a short-lived oauth_token used in an
+      OAuth Authorization header. Documented as the alternative to bearer.
+    credentials:
+      - consumer key
+      - consumer secret
+    token_lifetime: oauth_expires_in 3600 seconds; oauth_authorization_expires_in 86400 seconds
+    spec: https://oauth.net/core/1.0a/
+    vendor_spec: https://wiki.ucern.com/x/MgTJRg
+    sources:
+      - https://docs.healtheintent.com/#authenticating-using-oauth
+onboarding:
+  self_serve: false
+  process: >-
+    A system account must be requested through the Cerner Central portal (US or EU), naming the
+    customer, the solution, an Oracle contact and the environment. Once approved, an administrator
+    must additionally grant that system account authorization for each API and resource in the
+    Health Data Intelligence Console.
+  request_portals:
+    - region: US
+      url: https://cernercentral.com/system-accounts/
+    - region: EU
+      url: https://eu.cernercentral.com/system-accounts/
+  authorization_step: Health Data Intelligence Console, per API and per resource
+  note: >-
+    Access is customer-scoped. There is no public signup, no free tier and no anonymous key. The
+    APIs are B2B and, in Oracle's own words, "user-level authorization and filtering are not
+    applied" — the calling system is responsible for applying user authorization.
+x-evidence:
+  fetched: '2026-08-27'
+  url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1/populations/{populationId}/patients/{patientId}/allergies
+  http_status: 401
+  www_authenticate: >-
+    Bearer realm=cernerdemo.api.us-1.healtheintent.com OAuth realm=cernerdemo.api.us-1.healtheintent.com
+  note: >-
+    The live WWW-Authenticate header advertises both Bearer and OAuth challenges on the same
+    resource, independently confirming the dual scheme documented above.
+scopes:
+  applicable: false
+  reason: >-
+    No OAuth 2.0 surface exists, so there is no scope vocabulary. Authorization is granted per API
+    and per resource to a system account in the Health Data Intelligence Console, out of band from
+    the token. scopes/ is deliberately not emitted.

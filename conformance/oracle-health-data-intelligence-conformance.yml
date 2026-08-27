@@ -1,0 +1,134 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/
+description: >-
+  Standards and cross-cutting conformance assertions for the Oracle Health Data Intelligence API
+  surface. The notable finding is negative and explicit: this is a healthcare-data platform that
+  documents, at length and by name, why it does not implement HL7 FHIR.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      The platform supports bearer tokens issued to a system account and two-legged OAuth 1.0a. No
+      OAuth 2.0 authorization server, no token endpoint and no scope vocabulary is published.
+    source: https://docs.healtheintent.com/#authentication
+  - id: oauth1
+    conforms: true
+    version: 1.0a
+    evidence: >-
+      Two-legged OAuth 1.0a with consumer key and secret is a documented, supported authentication
+      method, and the live WWW-Authenticate header advertises an OAuth realm alongside Bearer.
+    source: https://docs.healtheintent.com/#authenticating-using-oauth
+  - id: oidc
+    conforms: false
+    evidence: >-
+      No /.well-known/openid-configuration is served on the API or documentation host; both return
+      403. No OIDC discovery, ID token or userinfo surface is documented.
+    source: well-known/oracle-health-data-intelligence-well-known.yml
+  - id: rfc6750
+    conforms: partial
+    evidence: >-
+      Bearer credentials are sent in the Authorization header and the server responds with a
+      WWW-Authenticate Bearer realm challenge on 401, which is RFC 6750 shaped. The error body,
+      however, is a vendor JSON envelope rather than the RFC's error/error_description parameters.
+    source: probed 2026-08-27
+  - id: rfc6585
+    conforms: true
+    evidence: >-
+      429 Too Many Requests is the documented throttling status, cited by Oracle against
+      RFC 6585 section 4.
+    source: https://docs.healtheintent.com/#what-does-it-mean-when-an-api-returns-an-http-429-status-code
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors are returned as a vendor JSON object of code, message and errorDetails[]. The media
+      type is application/json, not application/problem+json, and there is no type, title, detail
+      or instance member.
+    source: errors/oracle-health-data-intelligence-problem-types.yml
+  - id: json:api
+    conforms: false
+    evidence: Plain JSON resource representations with no JSON:API document structure.
+  - id: pagination
+    conforms: true
+    style: cursor
+    evidence: >-
+      Cursor and limit query parameters, with firstLink and nextLink absolute URLs returned in the
+      response body. Consistent across the v1 APIs.
+    source: https://docs.healtheintent.com/api/v1/allergy/#retrieve-a-list-of-allergies
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency key, dedupe window or replay contract is documented on any surface.
+    source: conventions/oracle-health-data-intelligence-conventions.yml
+  - id: http-conditional-requests
+    conforms: partial
+    evidence: >-
+      304 Not Modified and 412 Precondition Failed are documented in the platform status-code
+      table, but no ETag or Last-Modified header contract is published.
+    source: https://docs.healtheintent.com/#http-status-codes
+domain_standards:
+  sector: healthcare
+  regime: HIPAA / health information exchange
+  findings:
+    - id: hl7-fhir
+      conforms: false
+      declared_in_contract: false
+      evidence: >-
+        Oracle publishes an explicit, reasoned position that these are deliberately not FHIR APIs.
+        The developer portal states that Health Data Intelligence is a cloud-native platform
+        outside the context of any particular EHR, that FHIR is primarily a standard for EHR
+        information rather than population-health information, and that forcing Health Data
+        Intelligence data into FHIR models and vendor extensions "would make many of the APIs less
+        simple and usable, not more so". Oracle adds that it may create FHIR APIs for certain key
+        features in future and that any such APIs would be additions rather than replacements.
+      quote_source: https://docs.healtheintent.com/#why-are-health-data-intelligence-apis-not-fhir-apis
+      consequence: >-
+        An integrator who already speaks FHIR gets no reuse here and needs a bespoke connector.
+        Oracle's own guidance is to combine these APIs with the Oracle Health Millennium Platform
+        FHIR APIs, which are a separate product on a separate domain.
+      related_fhir_surface: https://docs.oracle.com/en/industries/health/millennium-platform-apis/index.html
+      observed: '2026-08-27'
+    - id: smart-on-fhir
+      conforms: false
+      evidence: >-
+        Oracle documents SMART and SMART on FHIR at length in its FAQ and states that SMART
+        applications built on Health Data Intelligence APIs can be embedded in the same manner as
+        SMART on FHIR applications, but the platform implements neither the SMART launch sequence
+        nor SMART scopes.
+      source: https://docs.healtheintent.com/#what-is-smart-on-fhir
+    - id: hl7v2
+      conforms: not-assessed
+      evidence: >-
+        The ingestion APIs (CareAware, Classic, Prime, Universal Data Ingestion) accept clinical
+        source data, but the accepted message formats are not documented on the public portal at a
+        level that would let this be asserted either way.
+    - id: x12
+      conforms: not-assessed
+      evidence: >-
+        Claims data is named as an input to the platform, but no X12 transaction set is declared on
+        any public API page.
+  note: >-
+    This is a reward-only dimension and Oracle is not penalised for the negative finding, but the
+    finding itself is the most decision-relevant fact in this file for a buyer: the market standard
+    for health data exchange exists, and this platform documents a deliberate decision not to
+    implement it.
+compliance:
+  program_published: true
+  scope: Oracle corporate / Oracle Cloud, not a product-specific attestation
+  url: https://www.oracle.com/corporate/cloud-compliance/
+  probed_status: 200
+  observed: '2026-08-27'
+  certifications_named:
+    - HIPAA
+    - HITRUST CSF
+    - SOC 2
+    - ISO/IEC 27001
+    - FedRAMP
+    - PCI DSS
+  caveat: >-
+    These are named on Oracle's corporate cloud-compliance registry, which spans Oracle's cloud
+    portfolio. No Health Data Intelligence-specific attestation, certificate or scope statement is
+    published on the developer portal. The one HIPAA statement inside the product documentation
+    pushes responsibility outward: organizations embedding pagelets through the HealtheLife
+    Framework SDK "agree to adopt any and all responsibility for properly protecting personal
+    health information (PHI)", and Oracle notes it cannot log HIPAA audit events for that content.
+  hipaa_shift_source: https://docs.healtheintent.com/api/alpha/healthelife/

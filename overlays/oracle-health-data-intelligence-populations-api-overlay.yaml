@@ -1,0 +1,164 @@
+overlay: 1.0.0
+info:
+  title: Oracle Health Data Intelligence Populations API — API Evangelist enhancements
+  version: 1.0.0
+extends: ../openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+x-provenance:
+  generated: '2026-08-27'
+  method: generated
+  source: https://docs.healtheintent.com/api/v1/allergy/
+  note: >-
+    Captures corrections and additions read from Oracle's own published Allergy API reference and
+    from a live probe of the demo tenant on 2026-08-27. The underlying OpenAPI is never mutated;
+    apply this overlay to obtain the enhanced document.
+actions:
+  - target: $.info
+    description: Add contact, licence-relevant terms and documentation links published by Oracle.
+    update:
+      termsOfService: https://www.oracle.com/legal/terms/
+      contact:
+        name: Oracle Health Data Intelligence
+        url: https://docs.healtheintent.com/api/v1/allergy/
+      x-support:
+        community: https://community.oracle.com/oraclehealth/group/1423-ignite-apis-community
+        service_records: https://eservice.ucern.com/
+  - target: $.servers
+    description: >-
+      Record the documented multi-tenant, multi-region base-URL template alongside the concrete
+      demo host. The region is part of the hostname, so it determines data residency.
+    update:
+      - url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1
+        description: Oracle-operated cernerdemo sandbox tenant, US region. Synthetic data, no PHI.
+      - url: https://{tenant}.api.{region}.healtheintent.com/allergy/v1
+        description: Customer tenant.
+        variables:
+          tenant:
+            default: cernerdemo
+            description: Mnemonic assigned to the customer's Health Data Intelligence tenant.
+          region:
+            default: us-1
+            enum: [us-1, emea-1, emea-2, ca-1, ap-1]
+            description: Oracle Cerner Cloud Region ID. Determines where the data resides.
+  - target: $.components.securitySchemes
+    description: >-
+      Add the two-legged OAuth 1.0a scheme that Oracle documents and that the live
+      WWW-Authenticate header advertises alongside Bearer.
+    update:
+      oauth1:
+        type: apiKey
+        in: header
+        name: Authorization
+        description: >-
+          Two-legged OAuth 1.0a. A consumer key and consumer secret issued with the system account
+          are exchanged for a short-lived oauth_token, sent as an OAuth Authorization header.
+          Documented by Oracle as the alternative to the preferred bearer token. Modelled here as
+          an apiKey header because OpenAPI has no native OAuth 1.0a security scheme type.
+        x-oauth-version: 1.0a
+        x-flow: two-legged
+        x-token-lifetime-seconds: 3600
+        x-spec: https://oauth.net/core/1.0a/
+  - target: $.components.schemas.Error
+    description: >-
+      Correct the error envelope. The captured contract types code as a string and omits
+      errorDetails; Oracle's documented schema and the live 401 response both return an integer
+      code plus an errorDetails array.
+    update:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: integer
+          format: int32
+          description: The HTTP response status code that represents the error.
+        message:
+          type: string
+          description: A human-readable description of the error.
+        errorDetails:
+          type: array
+          description: A list of additional error details.
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+      example:
+        code: 401
+        message: Unauthorized
+        errorDetails:
+          - locationType: header
+            location: Authorization
+            message: header missing
+  - target: $.components.schemas
+    description: Add the ErrorDetail schema documented on the Allergy API reference page.
+    update:
+      ErrorDetail:
+        type: object
+        properties:
+          domain:
+            type: string
+            description: A subsystem or context where an error occurred.
+          reason:
+            type: string
+            description: A codified value representing the specific error that caused the status.
+          message:
+            type: string
+            description: A human-readable description of an error.
+          locationType:
+            type: string
+            enum: [query, header, path, formData, body]
+            description: The location or type of the field that caused an error.
+          location:
+            type: string
+            description: The name of the field that caused an error.
+  - target: $.paths['/populations/{populationId}/patients/{patientId}/allergies'].get
+    description: >-
+      Add the platform-wide throttling response and the pagination semantics documented by Oracle.
+    update:
+      responses:
+        '429':
+          description: >-
+            Too Many Requests. Oracle intentionally throttles these APIs. Retry with exponential
+            backoff; no Retry-After header is returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: >-
+            Internal Server Error. Also covers 502, 503 and 504. Quote the cerner-correlation-id
+            response header when reporting.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-pagination:
+        style: cursor
+        request: {cursor: cursor, limit: limit}
+        response: {first: firstLink, next: nextLink}
+        note: firstLink and nextLink are absolute URLs and should be followed verbatim.
+  - target: $.paths['/populations/{populationId}/patients/{patientId}/allergies/{allergyId}'].get
+    description: Add the platform-wide throttling and server-error responses.
+    update:
+      responses:
+        '429':
+          description: Too Many Requests. Retry with exponential backoff.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error. Also covers 502, 503 and 504.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  - target: $
+    description: >-
+      Record platform-level operating facts that have no natural home in OpenAPI but that any
+      caller of this API needs.
+    update:
+      x-correlation-header: cerner-correlation-id
+      x-user-authorization: >-
+        Not applied by the platform. These are B2B APIs; Oracle expects the calling system to apply
+        authorization controls for its own users.
+      x-identifier-stability: >-
+        Health Data Intelligence patient IDs may change as new source data is aggregated. Do not
+        store them locally for long-term use; resolve them per workflow through the Patient API.
+      x-phi: true

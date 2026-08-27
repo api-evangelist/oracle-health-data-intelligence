@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Oracle Health Data Intelligence - Allergy Populations API
   version: v1
@@ -114,38 +114,7 @@ paths:
       tags:
       - Populations
 components:
-  responses:
-    ErrorResponse:
-      description: Error response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-    CodeableConcept:
-      type: object
-      properties:
-        codings:
-          type: array
-          items:
-            type: object
-        sourceCodings:
-          type: array
-          items:
-            type: object
-        concepts:
-          type: array
-          items:
-            type: object
-        text:
-          type: string
     Allergy:
       type: object
       required:
@@ -216,6 +185,30 @@ components:
               type: string
             id:
               type: string
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            type: object
+        sourceCodings:
+          type: array
+          items:
+            type: object
+        concepts:
+          type: array
+          items:
+            type: object
+        text:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
     Allergies:
       type: object
       properties:
@@ -227,6 +220,13 @@ components:
           type: string
         nextLink:
           type: string
+  responses:
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

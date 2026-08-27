@@ -1,0 +1,33 @@
+generated: '2026-08-27'
+method: probed
+source: https://wiki.cerner.com/x/SsP5Zg
+description: >-
+  Change history for the Oracle Health Data Intelligence APIs. The developer portal links Release
+  Notes, but the target is Cerner Wiki, which refuses anonymous requests. A public, dated changelog
+  for this API surface does not exist, so no ChangeLog pointer is emitted in apis.yml — pointing at
+  a page a reader cannot open would assert a transparency this provider does not offer publicly.
+published: false
+access: gated
+scheme: path-based API versioning; no per-release changelog
+current_version: v1 (v2 for the Provider API; alpha for the legacy generation)
+entry_count: 0
+entries: []
+probes:
+  - url: https://wiki.cerner.com/x/SsP5Zg
+    label: Release Notes (linked from the developer portal footer)
+    status: 403
+    fetched: '2026-08-27'
+    note: Cerner Wiki requires a customer login.
+  - url: https://docs.healtheintent.com/
+    label: developer portal home
+    status: 200
+    fetched: '2026-08-27'
+    note: >-
+      Carries a copyright range of 2013-2024 and no dated change history of its own. Version
+      changes are communicated through the versioning policy rather than a changelog.
+change_policy:
+  reference: lifecycle/oracle-health-data-intelligence-lifecycle.yml
+  summary: >-
+    In lieu of a changelog, Oracle publishes a passivity contract: within a version, only additive
+    changes occur; anything nonpassive gets a new version in the path. That gives a consumer a
+    guarantee about the shape of change without any notice of when a change happened.

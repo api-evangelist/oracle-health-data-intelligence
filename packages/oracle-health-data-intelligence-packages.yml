@@ -1,0 +1,53 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/#is-there-an-sdk-for-the-health-data-intelligence-apis-in-my-programming-language
+description: >-
+  First-party client library search for the Oracle Health Data Intelligence (formerly Cerner
+  HealtheIntent) API surface. Oracle states plainly in its own developer-portal FAQ that no
+  language-specific SDKs are published for these APIs, and no first-party package was found in any
+  public registry. This is a recorded absence, not an unchecked field.
+package_count: 0
+official_sdk_count: 0
+packages: []
+provider_statement:
+  quote: >-
+    Oracle does not currently provide language-specific SDKs for the Health Data Intelligence APIs
+    but plans to in the future.
+  second_quote: Oracle Health Data Intelligence does not have any SDK.
+  source: https://docs.healtheintent.com/
+  observed: '2026-08-27'
+registries_searched:
+  - registry: npm
+    query: healtheintent
+    endpoint: https://registry.npmjs.org/-/v1/search?text=healtheintent
+    results: 0
+    status: 200
+  - registry: npm
+    query: oracle health data intelligence
+    endpoint: https://registry.npmjs.org/-/v1/search?text=oracle%20health%20data%20intelligence
+    results: 0
+    note: only unrelated Oracle Cloud Infrastructure and oracledb packages returned
+    status: 200
+  - registry: pypi
+    query: healtheintent
+    endpoint: https://pypi.org/pypi/healtheintent/json
+    status: 404
+  - registry: maven-central
+    query: healtheintent
+    results: 0
+    note: no first-party coordinate published under an Oracle/Cerner group for this platform
+  - registry: rubygems
+    query: healtheintent
+    results: 0
+    note: >-
+      docs use HTTParty in every Ruby example rather than a vendor gem, which is itself evidence
+      that no first-party gem exists
+notes:
+  - >-
+    The only first-party developer library Oracle publishes anywhere in this product family is the
+    legacy HealtheLife Framework SDK, which is a browser/iframe embedding kit for the patient
+    portal rather than an API client library. It is recorded in
+    components/oracle-health-data-intelligence-components.yml, not here.
+  - >-
+    No SDKs pointer is emitted in apis.yml because there is no official client library to point at.
+    Emitting one would credit Oracle with an SDK surface it explicitly says it does not ship.

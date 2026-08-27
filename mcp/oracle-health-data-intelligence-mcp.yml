@@ -1,0 +1,80 @@
+generated: '2026-08-27'
+method: derived
+source: openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+status: candidate
+description: >-
+  Candidate MCP tool surface derived from the one machine-readable contract captured for Oracle
+  Health Data Intelligence. Oracle ships no MCP server for this platform. Oracle does publish MCP
+  servers elsewhere in its portfolio (Oracle Database and OCI services), but none of them front the
+  Health Data Intelligence APIs, and nothing on the Health Data Intelligence developer portal
+  mentions MCP. This file is a proposal, not a discovered surface.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+search:
+  performed: '2026-08-27'
+  queries:
+    - Oracle Health Data Intelligence HealtheIntent MCP server model context protocol
+  findings:
+    - >-
+      Oracle publishes MCP servers for Oracle Database and for OCI services (oracle.com/mcp). None
+      is scoped to Health Data Intelligence.
+    - >-
+      Community MCP servers exist for FHIR-based access to Oracle Health EHR data. Those front the
+      Oracle Health Millennium Platform FHIR APIs, a different product on a different domain, and
+      they are third-party, so neither is recorded as this provider's server.
+  portal_mentions_mcp: false
+  portal_probed: https://docs.healtheintent.com/
+tools:
+  - name: list_allergies
+    rest: listAllergies
+    method: GET
+    path: /populations/{populationId}/patients/{patientId}/allergies
+    consequence: read
+    description: >-
+      Retrieve a paginated list of allergies for a patient within a population, optionally filtered
+      by status.
+    inputSchema:
+      type: object
+      required: [populationId, patientId]
+      properties:
+        populationId: {type: string, description: Population identifier}
+        patientId: {type: string, description: Patient identifier}
+        limit: {type: integer, default: 20, minimum: 1, maximum: 100}
+        cursor: {type: string, description: Pagination cursor from a previous response}
+        status: {type: array, items: {type: string}, description: Filter by allergy status}
+  - name: get_allergy
+    rest: getAllergy
+    method: GET
+    path: /populations/{populationId}/patients/{patientId}/allergies/{allergyId}
+    consequence: read
+    description: Retrieve a single allergy for a patient.
+    inputSchema:
+      type: object
+      required: [populationId, patientId, allergyId]
+      properties:
+        populationId: {type: string}
+        patientId: {type: string}
+        allergyId: {type: string}
+prerequisite_tool:
+  note: >-
+    Any real MCP server over this platform needs a patient-resolution tool first. Health Data
+    Intelligence patient IDs are not stable and must not be cached, so an agent has to resolve a
+    source system ID to a platform patient ID at the start of every workflow via the Patient API's
+    patient-id-lookup endpoint. That API is documented but not captured as a contract in this repo,
+    so no tool is proposed for it here.
+  docs: https://docs.healtheintent.com/api/v1/patient#health-data-intelligence-patient-id-lookup
+safety:
+  phi: true
+  note: >-
+    Every tool above returns protected health information. Oracle states that user-level
+    authorization and filtering are not applied by the platform and that the calling system is
+    responsible for applying authorization controls for its users. Any agent placed in front of
+    these APIs inherits that obligation in full, and an MCP server exposing them to a general
+    assistant without a per-user authorization layer would be a HIPAA problem, not merely a design
+    one.
+  source: https://docs.healtheintent.com/

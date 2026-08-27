@@ -2,6 +2,8 @@ aid: oracle-health-data-intelligence
 url: >-
   https://raw.githubusercontent.com/api-evangelist/oracle-health-data-intelligence/refs/heads/main/apis.yml
 common:
+  - type: Website
+    url: https://www.oracle.com/health/
   - type: AgenticAccess
     url: agentic-access/oracle-health-data-intelligence-agentic-access.yml
   - type: DomainSecurity
@@ -10,6 +12,58 @@ common:
     url: authentication/oracle-health-data-intelligence-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/oracle
+  - type: DeveloperPortal
+    url: https://docs.healtheintent.com/
+  - type: Documentation
+    url: https://docs.healtheintent.com/
+  - type: APIReference
+    url: https://docs.healtheintent.com/api/v1/allergy/
+  - type: GettingStarted
+    url: https://docs.healtheintent.com/#getting-started
+  - type: Support
+    url: https://community.oracle.com/oraclehealth/group/1423-ignite-apis-community
+  - type: Login
+    url: https://cernercentral.com/system-accounts/
+  - type: TermsOfService
+    url: https://www.oracle.com/legal/terms/
+  - type: PrivacyPolicy
+    url: https://www.oracle.com/legal/privacy/
+  - type: Compliance
+    url: https://www.oracle.com/corporate/cloud-compliance/
+  - type: TrustCenter
+    url: security/oracle-health-data-intelligence-trust-center.yml
+  - type: Security
+    url: security/oracle-health-data-intelligence-vulnerability-disclosure.yml
+  - type: VulnerabilityDisclosure
+    url: security/oracle-health-data-intelligence-vulnerability-disclosure.yml
+  - type: Conformance
+    url: conformance/oracle-health-data-intelligence-conformance.yml
+  - type: ErrorCatalog
+    url: errors/oracle-health-data-intelligence-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/oracle-health-data-intelligence-lifecycle.yml
+  - type: Deprecation
+    url: lifecycle/oracle-health-data-intelligence-lifecycle.yml
+  - type: Conventions
+    url: conventions/oracle-health-data-intelligence-conventions.yml
+  - type: Sandbox
+    url: sandbox/oracle-health-data-intelligence-sandbox.yml
+  - type: Packages
+    url: packages/oracle-health-data-intelligence-packages.yml
+  - type: Components
+    url: components/oracle-health-data-intelligence-components.yml
+  - type: DataModel
+    url: data-model/oracle-health-data-intelligence-data-model.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/oracle-health-data-intelligence-llms.txt
+  - type: Plans
+    url: plans/oracle-health-data-intelligence-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/oracle-health-data-intelligence-rate-limits.yml
+  - type: FinOps
+    url: finops/oracle-health-data-intelligence-finops.yml
 apis:
 - aid: oracle-health-data-intelligence:oracle-health-data-intelligence
   name: Oracle Health Data Intelligence
@@ -17,58 +71,94 @@ apis:
   - Genomic
   - Health Records
   - Healthcare
-  humanURL: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+  - Population Health
+  - Longitudinal Record
+  - Interoperability
+  humanURL: https://docs.healtheintent.com/
+  baseURL: https://{tenant}.api.{region}.healtheintent.com
   properties:
-  - url: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+  - url: https://docs.healtheintent.com/
     type: Documentation
+  - url: https://docs.healtheintent.com/api/v1/allergy/
+    type: APIReference
   description: >-
     Oracle Health Data Intelligence is a comprehensive platform that leverages advanced analytics and
     artificial intelligence to collect and analyze health data from various sources, including electronic
     health records, claims data, and patient-generated data. This platform enables healthcare organizations
     to gain valuable insights into patient populations, treatment outcomes, and healthcare trends, ultimately
-    improving the quality of care and driving better patient outcomes.
+    improving the quality of care and driving better patient outcomes. The public developer portal documents
+    roughly sixty tenant-scoped REST APIs across the longitudinal record, data ingestion, analytics,
+    consumer engagement and clinical intelligence, all reached through a per-region base URL of the form
+    https://{tenant}.api.{region}.healtheintent.com/{api}/{version}/{resource}.
 - aid: oracle-health-data-intelligence:oracle-health-data-intelligence-populations-api
   name: Oracle Health Data Intelligence Populations API
   description: >-
-    The Populations API from Oracle Health Data Intelligence — 2 operation(s) for populations.
+    The Populations API from Oracle Health Data Intelligence — population-scoped read access to a
+    patient's aggregated allergy record within the longitudinal patient record. Two operations,
+    listAllergies and getAllergy, both cursor-paginated and both returning protected health
+    information. Authenticated with a system-account bearer token or two-legged OAuth 1.0a.
   humanURL: https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1
+  baseURL: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1
   tags:
   - Populations
+  - Allergy
+  - Health Records
   properties:
   - type: OpenAPI
     url: openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+  - type: Overlay
+    url: overlays/oracle-health-data-intelligence-populations-api-overlay.yaml
+  - type: Documentation
+    url: https://docs.healtheintent.com/api/v1/allergy/
 name: Oracle Health Data Intelligence
 tags:
   - Genomic
   - Health Records
   - Healthcare
+  - Population Health
+  - Longitudinal Record
+  - Interoperability
+  - Clinical Data
+  - Analytics
 type: Index
 accessModel:
-  pricing: freemium
-  onboarding: self-serve
+  pricing: enterprise
+  onboarding: request
   trial: false
-  try_now: true
+  try_now: false
   public: false
-  label: Freemium · Self-serve signup
+  label: Bundled with platform licence · System-account request
   confidence: high
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-08-27'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-health-data-intelligence.png
 access: 3rd-Party
 created: '2025-01-07'
-modified: '2026-03-16'
+modified: '2026-08-27'
 position: Consumer
 description: >-
-  Oracle Health Data Intelligence is a comprehensive platform that leverages advanced
-  analytics and artificial intelligence to provide actionable insights and support
-  informed decision-making in healthcare. By integrating data from multiple sources,
-  such as electronic health records, claims data, and genomic information, Oracle
-  Health Data Intelligence enables healthcare organizations to gain a holistic view
-  of patient populations, identify trends and patterns, and improve care delivery.
+  Oracle Health Data Intelligence, formerly Cerner HealtheIntent, is a tenant-scoped population
+  health platform that aggregates data from electronic health records, claims, genomic sources and
+  patient-generated data into a single longitudinal record per patient, then computes intelligence
+  over it — registries, risk scores, hierarchical condition categories, quality measures and care
+  plans. Its public developer portal documents roughly sixty REST APIs spanning the longitudinal
+  record, data ingestion, analytics and syndication, consumer engagement and clinical intelligence.
+  Access is business-to-business and customer-scoped: an Oracle system account is requested through
+  the Cerner Central portal and granted per-API authorization in the Health Data Intelligence
+  Console, authenticating with a bearer token or two-legged OAuth 1.0a. Oracle publishes no
+  machine-readable contract, no SDKs and, by a documented and reasoned decision, no FHIR APIs for
+  this platform.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-08-27'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1
+x-parent: oracle
+x-relationship: product

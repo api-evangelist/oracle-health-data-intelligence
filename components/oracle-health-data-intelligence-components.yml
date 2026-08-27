@@ -1,0 +1,70 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/api/alpha/healthelife/
+docs: https://docs.healtheintent.com/api/alpha/healthelife/
+description: >-
+  Client-side and embeddable surfaces published by Oracle Health Data Intelligence. There is one:
+  the HealtheLife Framework SDK, a browser embedding kit that lets a third party run its own web
+  application inside the HealtheLife patient portal. It is explicitly labelled legacy in the
+  developer portal.
+component_count: 1
+families:
+  - name: HealtheLife Framework SDK
+    status: legacy
+    docs: https://docs.healtheintent.com/api/alpha/healthelife/
+    description: >-
+      Software development kit that enables third-party developers to integrate web-based
+      applications, called pagelets, into the HealtheLife patient portal.
+    delivery: iframe embed
+    unit: pagelet
+    isolation:
+      css_js_sandboxing: true
+      same_origin_policy: true
+      independent_release: true
+      note: >-
+        Oracle's stated rationale for the iframe: styling and script dependencies do not conflict
+        across pagelets, the same-origin policy prevents one pagelet reading another's data, and
+        each pagelet releases independently of HealtheLife.
+    identity:
+      mechanism: Browser Context Session (BCS) token
+      format: signed JSON Web Token
+      algorithm: ES256
+      issuer: Cerner authorization server
+      time_bound: true
+      delivery_commercial_regions: query parameter bcs_token on the iframe src
+      delivery_federal_region: >-
+        omitted from the URL; the application must retrieve it through the SDK method getBCSToken()
+      claims:
+        - sub
+        - aud
+        - iss
+        - exp
+        - iat
+        - sid
+      header_fields:
+        - alg
+        - kid
+        - typ
+      note: >-
+        Passing a signed identity JWT as a URL query parameter in commercial regions is a
+        materially weaker posture than the federal region's SDK-retrieval path, and the docs
+        document the difference plainly.
+    compliance_note: >-
+      Oracle states that organizations embedding pagelets adopt all responsibility for protecting
+      PHI and IDs under HIPAA when using analytics or tracking, and that Cerner cannot log HIPAA
+      audit events for content embedded through this framework.
+    methods_referenced:
+      - getBCSToken()
+web_components: []
+element_libraries: []
+hosted_ui: []
+embedded_dashboards: []
+loader_libraries: []
+notes:
+  - >-
+    No modern web-component library, no embeddable analytics widget and no prebuilt UI surface is
+    published for the v1 API generation. Everything current is raw REST.
+  - >-
+    This is an embedding framework, not an API client library. No SDK pointer is emitted from it —
+    see packages/oracle-health-data-intelligence-packages.yml, where Oracle states no API SDKs
+    exist.

@@ -1,0 +1,30 @@
+generated: '2026-08-27'
+method: generated
+source: openapi/oracle-health-data-intelligence-populations-api-openapi.yml
+provider: Oracle Health Data Intelligence
+description: >-
+  Packaged Agent Skills for the Oracle Health Data Intelligence API surface. Grounded only in
+  operationIds that exist in the captured contract. Oracle publishes no skills, no AGENTS.md and no
+  agent-facing documentation of its own; these are authored by API Evangelist.
+provider_published_skills: false
+provider_probed:
+  - url: https://docs.healtheintent.com/
+    status: 200
+    note: no skills, AGENTS.md or agent guidance present
+skills:
+  - name: retrieve-patient-allergies
+    file: oracle-health-data-intelligence-retrieve-patient-allergies.md
+    api: Oracle Health Data Intelligence Populations API
+    operations: [listAllergies, getAllergy]
+    consequence: read
+    phi: true
+    summary: >-
+      Resolve a stable patient identifier, page the allergy collection to completion, and handle
+      the platform's throttling and authorization-grant failures correctly.
+coverage:
+  operations_in_contract: 2
+  operations_covered: 2
+  note: >-
+    Only one API is captured as a machine-readable contract in this repo, so only one skill can be
+    grounded. Roughly sixty further APIs are documented on the portal without a contract; skills
+    for those would have to invent operation identifiers and are deliberately not written.

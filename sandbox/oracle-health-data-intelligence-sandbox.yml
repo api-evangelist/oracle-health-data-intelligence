@@ -1,0 +1,88 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/#do-you-have-a-demo-or-sandbox-environment
+docs: https://docs.healtheintent.com/
+description: >-
+  Test and sandbox surface for the Oracle Health Data Intelligence APIs. Oracle runs a shared demo
+  tenant, cernerdemo, whose hostnames appear in every documented request and response example on
+  the developer portal. It is not a separate environment: the sandbox tenant runs inside the
+  production environment, and a system account is still required to call it.
+sandbox:
+  available: true
+  name: cernerdemo
+  type: shared demo tenant
+  isolated_environment: false
+  environment_note: >-
+    Oracle instructs applicants for a system account to specify Environment "Production", because
+    the sandbox tenant runs in the production environment.
+  base_url: https://cernerdemo.api.us-1.healtheintent.com
+  legacy_base_url: https://cernerdemo.record.us-1.healtheintent.com
+  region: us-1
+  requires_credentials: true
+  credential_type: system-account bearer token or OAuth 1.0a consumer key/secret
+  self_serve: false
+  provider_statement:
+    question: Do you have a demo or sandbox environment?
+    quote: >-
+      Health Data Intelligence is a tenant-scoped system, and Oracle maintains a tenant with the
+      mnemonic cernerdemo that functions as a developer sandbox. The cernerdemo tenant is a full
+      production-level tenant that is populated with realistic synthetic data that can be used for
+      demonstration purposes. Oracle often recommends that you develop your integration using the
+      cernerdemo tenant first, as the APIs respond in the same way they do for a customer tenant
+      but you cannot expose protected health information (PHI).
+    access_note: >-
+      If you want to use the cernerdemo tenant to design and test your implementation, contact your
+      Oracle representative or log an SR in eService. Customers control access to the APIs for
+      their tenants in Health Data Intelligence Console, but Oracle owns and controls access to the
+      cernerdemo tenant.
+    source: https://docs.healtheintent.com/#do-you-have-a-demo-or-sandbox-environment
+    observed: '2026-08-27'
+  data_class: realistic synthetic data, no PHI
+  probed:
+    url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1/populations/{populationId}/patients/{patientId}/allergies
+    status: 401
+    fetched: '2026-08-27'
+    note: >-
+      The demo tenant is live and reachable but rejects anonymous requests, confirming credentials
+      are required even for the sandbox.
+test_data:
+  type: seeded demo population
+  stability: unstable
+  provider_warning:
+    question: >-
+      Why do the provided example responses not always match what I see when making the equivalent
+      request in the cernerdemo tenant?
+    quote: >-
+      The data and IDs in the cernerdemo tenant are not static. While we try to keep the example
+      IDs and response data in sync with what is currently in cernerdemo, they are not guaranteed
+      to be. To find valid IDs in cernerdemo, use one of the list endpoints.
+    source: https://docs.healtheintent.com/
+  discovery_pattern: >-
+    Call a list endpoint first to obtain a valid identifier, then use it in the detail call. For
+    example, call /allergies to find a valid allergy ID before calling /allergies/{allergyId}.
+  documented_example_ids:
+    - kind: populationId
+      value: 1424e81d-8cea-4d6b-b140-d6630b684a58
+      note: published in the portal's own request examples; not guaranteed valid at any moment
+    - kind: patientId
+      value: a2f6a16d-1331-4ccc-8f70-6c4d953ba70b
+      note: published in the portal's own request examples; not guaranteed valid at any moment
+  no_magic_values: true
+  note: >-
+    Unlike a payments or comms provider, Oracle publishes no magic test identifiers, no trigger
+    values and no fixture-generation tooling. There is no way to force a specific error or state.
+test_facilities:
+  - name: Test SMS configuration
+    operation: POST /test-well-sms-configs
+    api: Consumer Notifications API
+    docs: https://docs.healtheintent.com/api/v1/consumer-notifications
+    description: >-
+      Sends a test SMS against a well SMS configuration. The only explicit test-mode operation
+      found anywhere on the platform.
+time_simulation:
+  supported: false
+  note: No test clock or time-travel facility is documented.
+gaps:
+  - No self-serve sandbox key; access still runs through the Cerner Central system-account request.
+  - No isolated non-production environment; the demo tenant runs in production.
+  - No stable fixtures, so example requests in the docs are not reliably reproducible.

@@ -1,0 +1,145 @@
+generated: '2026-08-27'
+method: searched
+source: https://docs.healtheintent.com/#http-status-codes
+docs: https://docs.healtheintent.com/#http-status-codes
+description: >-
+  Error catalog for the Oracle Health Data Intelligence APIs. The platform publishes a single
+  cross-API status-code table plus a shared Error/ErrorDetail response schema that every API page
+  repeats. The envelope is a Google-style structured error, not RFC 9457 problem+json.
+format: vendor-json
+media_type: application/json
+rfc9457: false
+envelope:
+  shape: object
+  fields:
+    - name: code
+      type: integer(int32)
+      required: true
+      description: The HTTP response status code that represents the error.
+    - name: message
+      type: string
+      required: true
+      description: A human-readable description of the error.
+    - name: errorDetails
+      type: array
+      required: false
+      items: ErrorDetail
+      description: A list of additional error details.
+  detail_fields:
+    - name: domain
+      type: string
+      required: false
+      description: A subsystem or context where an error occurred.
+    - name: reason
+      type: string
+      required: false
+      description: A codified value that represents the specific error that caused the error status.
+    - name: message
+      type: string
+      required: false
+      description: A human-readable description of an error.
+    - name: locationType
+      type: string
+      required: false
+      description: The location or type of the field that caused an error.
+      accepted_values: [query, header, path, formData, body]
+    - name: location
+      type: string
+      required: false
+      description: The name of the field that caused an error.
+  observed_example:
+    fetched: '2026-08-27'
+    url: https://cernerdemo.api.us-1.healtheintent.com/allergy/v1/populations/{populationId}/patients/{patientId}/allergies
+    http_status: 401
+    body: >-
+      {"code":401,"message":"Unauthorized","errorDetails":[{"locationType":"header",
+      "location":"Authorization","message":"header missing"}]}
+    note: >-
+      Live unauthenticated response. Confirms the documented envelope is what the runtime actually
+      emits, including the machine-readable locationType/location pair.
+correlation:
+  header: cerner-correlation-id
+  observed: true
+  note: >-
+    Returned on the live 401. Quote this value to Oracle support when reporting a failed request.
+problem_types:
+  - status: 400
+    title: Bad Request
+    description: >-
+      The server did not understand the request, often due to incorrect syntax or parameters. More
+      information can often be found in the error details section of the response body.
+    remediation: >-
+      Read errorDetails[].location and locationType to find the offending parameter and correct it.
+    retryable: false
+  - status: 401
+    title: Unauthorized
+    description: >-
+      The request did not have valid authentication credentials. Usually means the Authorization
+      header was not formatted correctly.
+    remediation: >-
+      Re-send with a correctly formatted system-account bearer token or an OAuth 1.0a Authorization
+      header. See the Authenticating with Bearer Token section.
+    retryable: false
+  - status: 403
+    title: Forbidden
+    description: >-
+      Credentials were valid but are not allowed to complete the requested operation. Usually means
+      the system account needs to be authorized in Health Data Intelligence Console for the
+      resource or operation.
+    remediation: >-
+      Grant the system account authorization for that API and resource in Health Data Intelligence
+      Console, or log a service record in eService.
+    retryable: false
+  - status: 404
+    title: Not Found
+    description: The resource requested does not exist.
+    remediation: Verify the population, patient and resource identifiers.
+    retryable: false
+  - status: 409
+    title: Conflict
+    description: >-
+      The request failed due to a conflict with the current state of the resource.
+    remediation: Re-read the resource and reconcile before retrying.
+    retryable: false
+  - status: 412
+    title: Precondition Failed
+    description: The request contained preconditions that were not met.
+    remediation: Re-fetch the current representation and recompute the precondition.
+    retryable: false
+  - status: 422
+    title: Unprocessable Entity
+    description: >-
+      The content type and syntax of the request are correct, but the server was unable to process
+      the instructions.
+    remediation: See the specific API page and the response body for the semantic constraint that failed.
+    retryable: false
+  - status: 429
+    title: Too Many Requests
+    description: >-
+      Requests are coming too often, or the server is under heavy load. Oracle intentionally rate
+      limits API requests to protect service performance.
+    remediation: >-
+      Retry the original request using an exponential backoff algorithm that waits progressively
+      longer between reattempts. No Retry-After value is documented.
+    retryable: true
+    spec: https://tools.ietf.org/html/rfc6585#section-4
+  - status: 500
+    title: Internal Server Error
+    description: >-
+      An error occurred on Oracle's side. Also applies to 502 Bad Gateway, 503 Service Unavailable
+      and 504 Gateway Timeout.
+    remediation: Retry later with backoff; quote cerner-correlation-id if the failure persists.
+    retryable: true
+success_codes:
+  - status: 200
+    meaning: Everything worked as expected.
+  - status: 201
+    meaning: The item was created.
+  - status: 204
+    meaning: Returned for PUT, POST or DELETE requests when no response body should be expected.
+  - status: 304
+    meaning: Returned for conditional GET requests when nothing has changed since the previous request.
+notes:
+  - >-
+    No per-code reason vocabulary (the errorDetails[].reason values) is published. An integrator
+    cannot enumerate the codified reasons in advance; they can only be read at runtime.

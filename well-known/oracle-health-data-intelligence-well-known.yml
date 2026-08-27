@@ -1,0 +1,85 @@
+generated: '2026-08-27'
+method: probed
+source: live HTTPS probes of the documentation host and the API host, 2026-08-27
+description: >-
+  /.well-known/ discovery probe for the Oracle Health Data Intelligence hosts. Nothing is served.
+  The documentation host is a static object store that answers 403 for any key that does not exist,
+  and the API host answers 403 from its edge for every /.well-known/ path while answering an
+  application-level 401 JSON error for real API paths. No document was fetched, so no file was
+  saved and no WellKnown or SecurityTxt pointer is emitted.
+hit_count: 0
+hosts:
+  - host: https://docs.healtheintent.com
+    note: >-
+      Static documentation host (Slate-rendered). A missing object returns 403, not 404, so 403 is
+      this host's absence signal.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+  - host: https://cernerdemo.api.us-1.healtheintent.com
+    note: >-
+      API host. Every /.well-known/ path returns an nginx 403 HTML page (520 bytes); real API paths
+      return application/json 401 with the documented Oracle error envelope, which confirms the 403
+      is an edge policy on the discovery prefix and not an auth challenge.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+  - host: https://www.oracle.com
+    note: >-
+      Parent brand host. Answers 403 from an edge bot policy for /.well-known/ paths while
+      /robots.txt returns 200, so the negative is recorded but is weaker evidence than the two
+      product hosts above.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+soft_404_control:
+  probe: https://cernerdemo.api.us-1.healtheintent.com/.well-known/security.txt
+  status: 403
+  bytes: 520
+  content_type: text/html
+  body_starts: '<html> <head><title>403 Forbidden</title></head>'
+  conclusion: >-
+    Identical 520-byte nginx 403 body on every /.well-known/ path, so no path is distinguishable
+    from any other. Nothing here is a served document.

@@ -150,7 +150,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/oracle-hea
 access: 3rd-Party
 created: '2025-01-07'
 modified: '2026-08-27'
-position: Consumer
+position: Consuming
 description: >-
   Oracle Health Data Intelligence, formerly Cerner HealtheIntent, is a tenant-scoped population
   health platform that aggregates data from electronic health records, claims, genomic sources and

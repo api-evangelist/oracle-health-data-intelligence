@@ -1,17 +1,17 @@
 ---
 kin_checks:
   slug: oracle-health-data-intelligence
-  schema_version: 0.17.2
-  scored_at: '2026-09-01'
-  run_ts: 2026-09-01T063623
+  schema_version: 0.18.2
+  scored_at: '2026-09-04'
+  run_ts: 2026-09-04T062714
   note: Actionable checks only (missed + partial). earned/na are every other check
-    in rubric/scoring-0.17.2.yml; counts below let you verify that.
+    in rubric/scoring-0.18.2.yml; counts below let you verify that.
   counts:
-    total: 130
-    earned: 47
-    partial: 9
-    missed: 52
-    na: 22
+    total: 132
+    earned: 45
+    partial: 10
+    missed: 53
+    na: 24
   checks:
   - id: multiple_apis
     status: missed
@@ -104,6 +104,8 @@ kin_checks:
     status: missed
   - id: reg_mandate_verified
     status: missed
+  - id: mcp_server
+    status: missed
   - id: openapi_examples
     status: missed
   - id: event_surface_described
@@ -130,6 +132,9 @@ kin_checks:
     status: partial
     earned: 2.5
     detail: pointer liveness 0.5
+  - id: agent_skill_present
+    status: partial
+    earned: 0.75
   - id: support_channel
     status: partial
     earned: 1.0
@@ -142,10 +147,6 @@ kin_checks:
     status: partial
     earned: 2.5
     detail: 'authorship: derived'
-  - id: mcp_server
-    status: partial
-    earned: 4.8
-    detail: 'grade: documented'
   - id: auth_clarity
     status: partial
     earned: 3.5
@@ -158,3 +159,7 @@ kin_checks:
     status: partial
     earned: 3.5
     detail: 'grade: documented'
+  - id: agent_skills
+    status: partial
+    earned: 1.25
+    detail: 'authorship: derived'

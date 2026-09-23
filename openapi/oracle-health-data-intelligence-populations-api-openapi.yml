@@ -4,9 +4,7 @@ info:
   version: v1
   description: 'Allergy API for Oracle Health Data Intelligence (formerly Cerner HealtheIntent).
 
-    Provides population-scoped access to patient allergies.
-
-    '
+    Provides population-scoped access to patient allergies.'
   contact:
     name: Oracle Health Data Intelligence
     url: https://docs.healtheintent.com/api/v1/allergy/
@@ -115,6 +113,23 @@ paths:
       - Populations
 components:
   schemas:
+    CodeableConcept:
+      type: object
+      properties:
+        codings:
+          type: array
+          items:
+            type: object
+        sourceCodings:
+          type: array
+          items:
+            type: object
+        concepts:
+          type: array
+          items:
+            type: object
+        text:
+          type: string
     Allergy:
       type: object
       required:
@@ -185,30 +200,6 @@ components:
               type: string
             id:
               type: string
-    CodeableConcept:
-      type: object
-      properties:
-        codings:
-          type: array
-          items:
-            type: object
-        sourceCodings:
-          type: array
-          items:
-            type: object
-        concepts:
-          type: array
-          items:
-            type: object
-        text:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
     Allergies:
       type: object
       properties:
@@ -219,6 +210,13 @@ components:
         firstLink:
           type: string
         nextLink:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
           type: string
   responses:
     ErrorResponse:

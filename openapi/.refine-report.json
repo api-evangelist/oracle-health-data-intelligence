@@ -1,7 +1,7 @@
 {
   "provider": "oracle-health-data-intelligence",
   "sources": [
-    "oracle-health-data-intelligence-populations-api-openapi.yml"
+    "_original/oracle-health-data-intelligence-openapi.yml"
   ],
   "outputs": [
     "oracle-health-data-intelligence-populations-api-openapi.yml"
@@ -10,8 +10,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "oracle-health-data-intelligence-populations-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "oracle-health-data-intelligence-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "oracle-health-data-intelligence-openapi.yml: tagged paths GET /populations/{populationId}/patients/{patientId}/allergies -> Populations",
+    "oracle-health-data-intelligence-openapi.yml: tagged paths GET /populations/{populationId}/patients/{patientId}/allergies/{allergyId} -> Populations",
+    "oracle-health-data-intelligence-openapi.yml: declared missing tag: Populations",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "oracle-health-data-intelligence-populations-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

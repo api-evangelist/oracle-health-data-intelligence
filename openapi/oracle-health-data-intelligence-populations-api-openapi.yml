@@ -113,6 +113,13 @@ paths:
       - Populations
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
     Allergy:
       type: object
       required:
@@ -199,13 +206,6 @@ components:
           items:
             type: object
         text:
-          type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
           type: string
     Allergies:
       type: object

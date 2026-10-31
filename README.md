@@ -1,4 +1,4 @@
-# Oracle Health Data Intelligence (oracle-health-data-intelligence)
+# Oracle Health Data Intelligence
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,52 +64,140 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Oracle Health Data Intelligence is a comprehensive platform that leverages advanced analytics and artificial intelligence to provide actionable insights and support informed decision-making in healthcare. By integrating data from multiple sources, such as electronic health records, claims data, and genomic information, Oracle Health Data Intelligence enables healthcare organizations to gain a holistic view of patient populations, identify trends and patterns, and improve care delivery.
+Oracle Health Data Intelligence, formerly Cerner HealtheIntent, is a tenant-scoped population health platform that aggregates data from electronic health records, claims, genomic sources and patient-generated data into a single longitudinal record per patient, then computes intelligence over it — registries, risk scores, hierarchical condition categories, quality measures and care plans. Its public developer portal documents roughly sixty REST APIs spanning the longitudinal record, data ingestion, analytics and syndication, consumer engagement and clinical intelligence. Access is business-to-business and customer-scoped: an Oracle system account is requested through the Cerner Central portal and granted per-API authorization in the Health Data Intelligence Console, authenticating with a bearer token or two-legged OAuth 1.0a. Oracle publishes no machine-readable contract, no SDKs and, by a documented and reasoned decision, no FHIR APIs for this platform.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/oracle-health-data-intelligence/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/oracle-health-data-intelligence/refs/heads/main/apis.yml)
+**Areas:** Genomic · Health Records · Healthcare · Population Health · Longitudinal Record · Interoperability · Clinical Data · Analytics
 
-## Scope
+## Oracle Health Data Intelligence on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Oracle Health Data Intelligence is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/oracle-health-data-intelligence/](https://apis.io/providers/oracle-health-data-intelligence/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (2)
 
-- Genomic
-- Health Records
-- Healthcare
+- [Oracle Health Data Intelligence](https://apis.io/apis/oracle-health-data-intelligence/oracle-health-data-intelligence/) — Oracle Health Data Intelligence is a comprehensive platform that leverages advanced analytics and artificial intelligence to collect and analyze health data…
+- [Oracle Health Data Intelligence Populations API](https://apis.io/apis/oracle-health-data-intelligence/oracle-health-data-intelligence-populations-api/) — The Populations API from Oracle Health Data Intelligence — population-scoped read access to a patient's aggregated allergy record within the longitudinal…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-01-07
-- **Modified:** 2026-03-16
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Oracle Health Data Intelligence
+Model Context Protocol servers that expose the API to agents.
 
-Oracle Health Data Intelligence is a comprehensive platform that leverages advanced analytics and artificial intelligence to collect and analyze health data from various sources, including electronic health records, claims data, and patient-generated data. This platform enables healthcare organizations to gain valuable insights into patient populations, treatment outcomes, and healthcare trends, ultimately improving the quality of care and driving better patient outcomes.
+- [oracle-health-data-intelligence-mcp.yml](https://apis.io/servers/oracle-health-data-intelligence/oracle-health-data-intelligence-mcp-yml/)
 
-- **Human URL:** [https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1](https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Genomic
-- Health Records
-- Healthcare
+- [Oracle Health Data Intelligence Agentic Access](https://apis.io/agentic-access/oracle-health-data-intelligence/oracle-health-data-intelligence-agentic-access/)
 
-#### Properties
+#### Collections (2)
 
-- [Documentation](https://docs.healtheintent.com/api/v1/allergy/#allergy-api-v1)
-- [Postman Collection](collections/oracle-health-data-intelligence.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/oracle-health-data-intelligence.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Oracle Health Data Intelligence - Allergy API](https://apis.io/collections/oracle-health-data-intelligence/open-oracle-health-data-intelligence/)
+- [Oracle Health Data Intelligence - Allergy Populations API](https://apis.io/collections/oracle-health-data-intelligence/open-oracle-health-data-intelligence-populations-api/)
 
-- [GitHub Organization](https://github.com/oracle)
+#### Overlays (1)
 
-## Maintainers
+OpenAPI overlays, including conversational phrasing for each operation.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+- [Oracle Health Data Intelligence Populations Api Overlay](https://apis.io/overlays/oracle-health-data-intelligence/oracle-health-data-intelligence-populations-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Oracle Health Data Intelligence Authentication](https://apis.io/security/oracle-health-data-intelligence/oracle-health-data-intelligence-authentication/)
+- [Oracle Health Data Intelligence Domain Security](https://apis.io/security/oracle-health-data-intelligence/oracle-health-data-intelligence-domain-security/)
+- [Oracle Health Data Intelligence Trust Center](https://apis.io/security/oracle-health-data-intelligence/oracle-health-data-intelligence-trust-center/)
+- [Oracle Health Data Intelligence Vulnerability Disclosure](https://apis.io/security/oracle-health-data-intelligence/oracle-health-data-intelligence-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Oracle Health Data Intelligence Plans Pricing](https://apis.io/plans/oracle-health-data-intelligence/oracle-health-data-intelligence-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Oracle Health Data Intelligence Rate Limits](https://apis.io/rate-limits/oracle-health-data-intelligence/oracle-health-data-intelligence-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Oracle Health Data Intelligence Finops](https://apis.io/finops/oracle-health-data-intelligence/oracle-health-data-intelligence-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.oracle.com/health/)
+- [Documentation](https://docs.healtheintent.com/)
+- [Getting started](https://docs.healtheintent.com/#getting-started)
+- [API reference](https://docs.healtheintent.com/api/v1/allergy/)
+- [Support](https://community.oracle.com/oraclehealth/group/1423-ignite-apis-community)
+- [Compliance](https://www.oracle.com/corporate/cloud-compliance/)
+- [Terms of service](https://www.oracle.com/legal/terms/)
+- [Privacy policy](https://www.oracle.com/legal/privacy/)
+- [GitHub](https://github.com/oracle)
+
+## API Evangelist rating
+
+**Kin Score 46.4** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.8 |
+| Contract governance | 18.2 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 55.4 |
+| Access clarity | 43.4 |
+
+**Agent readiness 31.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 32.8** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/oracle-health-data-intelligence/](https://apis.io/providers/oracle-health-data-intelligence/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Oracle Health Data Intelligence: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/oracle-health-data-intelligence/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).

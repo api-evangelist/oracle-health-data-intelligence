@@ -5,9 +5,18 @@ artifacts:
   agentic-access/oracle-health-data-intelligence-agentic-access.yml:
     method: generated
     evidence: declared in the artifact
+  ai-preferences/oracle-health-data-intelligence-ai-preferences.yml:
+    method: harvested
+    evidence: declared in the artifact
   authentication/oracle-health-data-intelligence-authentication.yml:
     method: searched
     evidence: declared in the artifact
+  certification/observations-2026-11-11.jsonl:
+    method: unknown
+    evidence: no authorship recorded
+  certification/status.yml:
+    method: unknown
+    evidence: no authorship recorded
   changelog/oracle-health-data-intelligence-changelog.yml:
     method: unknown
     evidence: no authorship recorded
@@ -23,6 +32,9 @@ artifacts:
   collections/oracle-health-data-intelligence.postman_collection.json:
     method: derived
     evidence: openapi/oracle-health-data-intelligence
+  compliance/oracle-health-data-intelligence-compliance.yml:
+    method: harvested
+    evidence: declared in the artifact
   components/oracle-health-data-intelligence-components.yml:
     method: searched
     evidence: declared in the artifact
@@ -32,8 +44,14 @@ artifacts:
   conventions/oracle-health-data-intelligence-conventions.yml:
     method: searched
     evidence: declared in the artifact
+  data-license/oracle-health-data-intelligence-data-license.yml:
+    method: harvested
+    evidence: declared in the artifact
   data-model/oracle-health-data-intelligence-data-model.yml:
     method: derived
+    evidence: declared in the artifact
+  eligibility/oracle-health-data-intelligence-eligibility.yml:
+    method: harvested
     evidence: declared in the artifact
   errors/oracle-health-data-intelligence-problem-types.yml:
     method: searched
@@ -47,7 +65,7 @@ artifacts:
   kin/checks-2026-10-23T222754.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
-  kin/checks-2026-11-02T082323.yml:
+  kin/checks-2026-11-06T143934.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-23T000603.yml:
@@ -113,6 +131,9 @@ artifacts:
   kin/score-2026-11-02T082323.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-11-06T143934.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   lifecycle/oracle-health-data-intelligence-lifecycle.yml:
     method: searched
     evidence: declared in the artifact
@@ -164,6 +185,9 @@ artifacts:
     evidence: declared in the artifact
   skills/oracle-health-data-intelligence-retrieve-patient-allergies.md:
     method: generated
+    evidence: declared in the artifact
+  terms/oracle-health-data-intelligence-terms-of-service.yml:
+    method: harvested
     evidence: declared in the artifact
   well-known/oracle-health-data-intelligence-well-known.yml:
     method: unknown
